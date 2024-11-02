@@ -1,5 +1,7 @@
 import React from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import { addAddToStoreReadList } from "../../Utlity/adToDb";
+import { addAddToStoreWishList } from "../../Utlity/addToDbWishList";
 
 const BookDetail = () => {
   const { bookId } = useParams();
@@ -21,6 +23,13 @@ const BookDetail = () => {
     rating,
   } = book;
 
+  const handleMarkAsRead = (id) => {
+    addAddToStoreReadList(id);
+  };
+  const handleWishList = (id) => {
+    addAddToStoreWishList(id)
+  };
+
   return (
     <div className="hero bg-base-200 p-10 rounded-xl">
       <div className="hero-content flex-col lg:flex-row gap-12">
@@ -33,7 +42,7 @@ const BookDetail = () => {
           <p className="text-lg font-semibold border-y p-2">Fiction</p>
 
           <p className="font-bold text-lg">
-            Review: 
+            Review:
             <span className=" text-gray-600 font-normal text-sm">{review}</span>
           </p>
 
@@ -95,8 +104,18 @@ const BookDetail = () => {
           </div>
 
           <div className="flex gap-5 mt-5 ">
-            <button className= " btn  btn-accent bg-transparent  px-14">Read</button>
-            <button className= " btn btn-accent px-14">Wishlist</button>
+            <button
+              onClick={() => handleMarkAsRead(bookId)}
+              className=" btn  btn-accent bg-transparent  px-14"
+            >
+              Mark as Read
+            </button>
+            <button
+              onClick={() => handleWishList(bookId)}
+              className=" btn btn-accent px-14"
+            >
+              Add to Wish list
+            </button>
           </div>
         </div>
       </div>
